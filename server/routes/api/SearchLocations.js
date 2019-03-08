@@ -1,11 +1,13 @@
-const fetch = require('node-fetch');
-const generateWebAppURL = require('server/utils').generateWebAppURL;
+const fetch = require("node-fetch");
+const generateWebAppURL = require("server/utils").generateWebAppURL;
 
-module.exports = (app) => {
-
-  app.post('/search-location-weather', (req, res) => {
+module.exports = app => {
+  app.post("/search-location-weather", (req, res) => {
     const requestBody = req.body;
-    const apiUrl = generateWebAppURL(requestBody.locationType, requestBody.locationData);
+    const apiUrl = generateWebAppURL(
+      requestBody.locationType,
+      requestBody.locationData
+    );
 
     fetch(apiUrl)
       .then(res => res.json())
@@ -13,7 +15,7 @@ module.exports = (app) => {
         res.send({ data });
       })
       .catch(err => {
-        res.redirect('/error');
+        res.redirect("/error");
       });
   });
 };
